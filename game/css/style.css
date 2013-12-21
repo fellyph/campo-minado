@@ -1,0 +1,112 @@
+@font-face {
+    font-family: 'ds-digitalnormal';
+    src: url('../fonts/ds-digi-webfont.eot');
+    src: url('../fonts/ds-digi-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ds-digi-webfont.woff') format('woff'),
+         url('../fonts/ds-digi-webfont.ttf') format('truetype'),
+         url('../fonts/ds-digi-webfont.svg#ds-digitalnormal') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+.center{
+	margin: 0 auto;
+}
+
+.left{
+	float:left;
+}
+
+.right{
+	float:right;
+}
+
+.container{
+	width:600px;
+}
+
+/* ----------------------------- header -----------------------*/
+
+header{
+	margin-bottom: 15px;
+	height:120px;
+}
+
+#flags,
+#timer{
+	font-family: 'ds-digitalnormal';
+	color:#00DD00;
+	background:#000;
+	padding:10px;
+	border:2px solid #ddd;
+	width:16%;
+	text-align:center;
+}
+
+#smile{
+	background: url(../img/smiles.gif) no-repeat center 0;
+	width: 60%;
+	height: 30px;
+}
+
+.game-over #smile{
+	background-position: center -36px;
+}
+
+
+.you-win #smile{
+	background-position: center -72px;
+}
+
+
+.title-game{
+	border-bottom: 1px solid #999;
+	border-top: 1px solid #ccc;
+	color: #FFCC00;
+	font-family: Verdana,Arial,sans-serif;
+	font-size: 24px;
+	text-align: center;
+	text-shadow: 2px 2px #333;
+	text-transform:uppercase;
+	padding: 10px 0;
+}
+
+.game-over .title-game{
+	color: #CC0000;
+}
+
+#my-canvas{
+	display: block;
+}
+
+.levels{
+	border-bottom: 1px solid #999;
+	border-top: 1px solid #999;
+	margin: 10px 0;
+	padding: 10px 0;
+}
+
+button{
+	background:transparent;
+	border:1px solid #999;
+	color:#999;
+}
+
+button:hover{
+	background:#999;
+	border:1px solid #999;
+	color:#fff;
+}
+
+button.current{
+	background:#999;
+	color:#fff;
+}
+
+button:disabled{
+	opacity:0.3;
+	background:transparent;
+	border:1px solid #999;
+	color:#999;
+}
+
