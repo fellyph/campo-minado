@@ -69,7 +69,7 @@ var gameConfig = {
             canvas.height = gameConfig.height * gameConfig.level[gameConfig.currentLevel].rows;
             drawStage();
             sortBombs();
-            canvas.addEventListener("click", onClickGame);
+            canvas.addEventListener('click', onClickGame);
 		}
 		
 		function sortBombs() {
