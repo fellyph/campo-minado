@@ -1,4 +1,4 @@
-		gameConfig = {
+var gameConfig = {
 		    level: [{
 		        rows: 8,
 		        cols: 8,
@@ -16,31 +16,29 @@
 		    width: 50,
 		    height: 50,
 		    spaceBox: 3,
-		    color: "#333333",
+		    color: '#333333',
 		    bombsList: [],
 		    flagsNum: 0,
 		    clickedNum: 0,
 		    map: [],
 		    loadedGame: false,
 		    totalBlocks: 0
-		}
-
-		var ctx,
-		    canvas,
-		    countrows = 0,
-		    countcols = 0,
-		    mouseX,
-		    mouseY,
-		    youlose = false,
-		    timer,
-		    seconds = 0,
-		    btnsLevel,
-		    timerStarted = false,
-			btSave,
-			btLoad,
-			btNew;
-
-		var boxesToCheck = [
+		},
+    ctx,
+    canvas,
+    countrows = 0,
+    countcols = 0,
+    mouseX,
+    mouseY,
+    youlose = false,
+    timer,
+    seconds = 0,
+    btnsLevel,
+    timerStarted = false,
+    btSave,
+    btLoad,
+    btNew,
+    boxesToCheck = [
 		    [1, 1],
 		    [0, 1],
 		    [-1, 1],
@@ -50,49 +48,49 @@
 		    [1, -1],
 		    [1, 0]
 		],
-		    clickedBases = [];
+            clickedBases = [];
 
 
 // add the listener to check if the page is loaded
 
-window.addEventListener("load", function () {
-		    canvas = document.getElementById("my-canvas");
-			ctx = canvas.getContext("2d");
+window.addEventListener('load', function () {
+		    canvas = document.getElementById('my-canvas');
+			ctx = canvas.getContext('2d');
 		    
 			// cache the buttons
-			btLoad = document.getElementById("bt-load")
-		   	btSave = document.getElementById("bt-save")
-			btNew =  document.getElementById("bt-new")
+			btLoad = document.getElementById('bt-load');
+		   	btSave = document.getElementById('bt-save');
+			btNew =  document.getElementById('bt-new');
 			
 			//check if localStorage has a level saved
-			if (localStorage.getItem("currentLevel")) {
-		        gameConfig.currentLevel = localStorage.getItem("currentLevel");
+			if (localStorage.getItem('currentLevel')) {
+		        gameConfig.currentLevel = localStorage.getItem('currentLevel');
 		        initGame(gameConfig.currentLevel);
-		        document.getElementsByClassName("set-level")[gameConfig.currentLevel].className = "set-level current";
+		        document.getElementsByClassName('set-level')[gameConfig.currentLevel].className = 'set-level current';
 		    } else {
 		        initGame(0);
-		        document.getElementsByClassName("set-level")[0].className = "set-level current"
+		        document.getElementsByClassName('set-level')[0].className = 'set-level current';
 		    }
 			
-		    if (localStorage.getItem("oldgame")) {
-		        btLoad.addEventListener("click", loadGame)
+		    if (localStorage.getItem('oldgame')) {
+		        btLoad.addEventListener('click', loadGame)
 		    } else {
 		        btLoad.disabled = true;
 		    }
 		    
-			btnsLevel = document.getElementsByClassName("set-level");
+			btnsLevel = document.getElementsByClassName('set-level');
 		    
 			for (var i = 0; i < btnsLevel.length; i++) {
-		        btnsLevel[i].addEventListener("click", selectLevel);
+		        btnsLevel[i].addEventListener('click', selectLevel);
 		    }
 		    
-			btSave.addEventListener("click", saveGame);
-		    btNew.addEventListener("click", selectLevel);
+			btSave.addEventListener('click', saveGame);
+		    btNew.addEventListener('click', selectLevel);
 		})
 
 		function loadGame(e) {
 
-		    var oldGame = JSON.parse(localStorage.getItem("oldgame"))
+		    var oldGame = JSON.parse(localStorage.getItem('oldgame'))
 
 		    initGame(oldGame.level);
 		    
@@ -103,7 +101,7 @@ window.addEventListener("load", function () {
 		    gameConfig.loadedGame = true;
 			
 			seconds = oldGame.seconds;
-			document.getElementById("timer").innerHTML = "Timer: " + seconds;
+			document.getElementById('timer').innerHTML = 'Timer: ' + seconds;
 		    
 			
 		    var totalCols = gameConfig.level[gameConfig.currentLevel].cols;
@@ -122,12 +120,12 @@ window.addEventListener("load", function () {
 		    }
 		}
 
-		function selectLevel(e) {
+		function selectLevel(event) {
 		   
 			var current;
 		    if (this.dataset.level) {
 		        current = this.dataset.level;
-		        localStorage.setItem("currentLevel", current);
+		        localStorage.setItem('currentLevel', current);
 		    } else {
 		        current = gameConfig.currentLevel;
 		    }
@@ -135,13 +133,13 @@ window.addEventListener("load", function () {
 		    initGame(current)
 
 		    for (var i = 0; i < btnsLevel.length; i++) {
-		        btnsLevel[i].className = "set-level"
+		        btnsLevel[i].className = 'set-level';
 		    }
 			
-		    btnsLevel[current].className = "set-level current";
+		    btnsLevel[current].className = 'set-level current';
 		}
 
-		function tryCheat(e) {
+		function tryCheat(event) {
 		    if ((gameConfig.bombsList.length - gameConfig.flagsNum) == 0) {
 		        var countCheat = 0;
 		        for (bomb in gameConfig.bombsList) {
@@ -180,16 +178,16 @@ window.addEventListener("load", function () {
 		}
 
 
-		function onRightClickGame(e) {
-		    e.preventDefault()
+		function onRightClickGame(event) {
+		    event.preventDefault()
 
 		    if (!timerStarted) {
 		        timer = setInterval(countTimer, 1000);
 		        timerStarted = true;
 		    }
 			
-		    mouseX = e.pageX - e.target.offsetLeft;
-		    mouseY = e.pageY - e.target.offsetTop;
+		    mouseX = event.pageX - event.target.offsetLeft;
+		    mouseY = event.pageY - event.target.offsetTop;
 		    totalBombs = gameConfig.bombsList.length;
 
 		    clickedXFlag = Math.floor(mouseX / gameConfig.width);
@@ -208,7 +206,7 @@ window.addEventListener("load", function () {
 		            gameConfig.map[clickedXFlag][clickedYFlag].haveFlag = false;
 		            gameConfig.flagsNum--;
 		        }
-		        document.getElementById("flags").innerHTML = "FLAGS: " + (totalBombs - gameConfig.flagsNum);
+		        document.getElementById('flags').innerHTML = 'FLAGS: ' + (totalBombs - gameConfig.flagsNum);
 		    }
 
 		}
@@ -216,16 +214,16 @@ window.addEventListener("load", function () {
 		function youWin() {
 		    clearInterval(timer);
 		    localStorage.clear();
-		    document.getElementById("game").className += " you-win";
+		    document.getElementById('game').className += ' you-win';
 		    btSave.disabled = true;
-		    document.getElementsByClassName("title-game")[0].innerHTML = "YOU WIN!";
+		    document.getElementsByClassName('title-game')[0].innerHTML = 'YOU WIN!';
 		}
 
 		function addFlag(x, y) {
 			
 		    ctx.beginPath();
 		    ctx.lineWidth = 3;
-		    ctx.strokeStyle = "#ffffff";
+		    ctx.strokeStyle = '#ffffff';
 		    ctx.moveTo(x + 4, y + 4)
 		    ctx.lineTo(x + 4, y + gameConfig.height - 4);
 		    ctx.stroke()
@@ -235,7 +233,7 @@ window.addEventListener("load", function () {
 		    ctx.lineTo(x + gameConfig.width - 8, y + gameConfig.height / 4);
 		    ctx.lineTo(x + 8, y + gameConfig.height / 2);
 		    ctx.lineTo(x + 8, y + 5);
-		    ctx.fillStyle = ctx.strokeStyle = "#ff0000";
+		    ctx.fillStyle = ctx.strokeStyle = '#ff0000';
 		    ctx.fill();
 		    ctx.stroke();
 		}
@@ -244,7 +242,7 @@ window.addEventListener("load", function () {
 		    ctx.beginPath()
 		    ctx.lineWidth = 1;
 		    ctx.rect(x, y, gameConfig.width, gameConfig.height);
-		    ctx.strokeStyle = "#ffffff";
+		    ctx.strokeStyle = '#ffffff';
 		    ctx.fillStyle = gameConfig.color;
 		    ctx.fill();
 		    ctx.stroke();
@@ -257,8 +255,8 @@ window.addEventListener("load", function () {
 		    gameConfig.map = [];
 		    gameConfig.flagsNum = 0;
 		    gameConfig.clickedNum = 0;
-		    document.getElementById("game").className = "container";
-		    document.getElementsByClassName("title-game")[0].innerHTML = "Minesweeper";
+		    document.getElementById('game').className = 'container';
+		    document.getElementsByClassName('title-game')[0].innerHTML = 'Minesweeper';
 		    btSave.disabled = true;
 		    
 			youlose = false;
@@ -266,25 +264,25 @@ window.addEventListener("load", function () {
 		    canvas.width = gameConfig.width * gameConfig.level[gameConfig.currentLevel].cols;
 		    canvas.height = gameConfig.height * gameConfig.level[gameConfig.currentLevel].rows;
 
-		    document.getElementById("flags").innerHTML = "Flags: " + gameConfig.level[gameConfig.currentLevel].bombsNum;
+		    document.getElementById('flags').innerHTML = 'Flags: ' + gameConfig.level[gameConfig.currentLevel].bombsNum;
 
 		    if (timerStarted) {
 		        clearInterval(timer);
 		        timerStarted = false;
 		        seconds = 0;
-		        document.getElementById("timer").innerHTML = "Timer: 0";
+		        document.getElementById('timer').innerHTML = 'Timer: 0';
 		    }
 
 		    drawStage();
 		    sortBombs();
-		    canvas.addEventListener("click", onClickGame);
-		    canvas.addEventListener("contextmenu", onRightClickGame);
-		    document.getElementById("smile").addEventListener("click", tryCheat)
+		    canvas.addEventListener('click', onClickGame);
+		    canvas.addEventListener('contextmenu', onRightClickGame);
+		    document.getElementById('smile').addEventListener('click', tryCheat)
 		}
 
 		function countTimer() {
 		    seconds++;
-		    document.getElementById("timer").innerHTML = "Timer: " + seconds;
+		    document.getElementById('timer').innerHTML = 'Timer: ' + seconds;
 		}
 
 		function sortBombs() {
@@ -303,20 +301,23 @@ window.addEventListener("load", function () {
 
 		function gameOver() {
 		    youlose = true;
-		    if (gameConfig.loadedGame = true) {
-		        localStorage.removeItem("oldgame");
+		    
+            if (gameConfig.loadedGame = true) {
+		        localStorage.removeItem('oldgame');
 		        gameConfig.loadedGame = false;
 		        btLoad.disabled = true;
 		    }
+            
 		    clearInterval(timer)
-		    for (i = 0; i < gameConfig.bombsList.length; i++) {
+		    
+            for (i = 0; i < gameConfig.bombsList.length; i++) {
 		        var x = gameConfig.bombsList[i][0] * gameConfig.width;
 		        var y = gameConfig.bombsList[i][1] * gameConfig.height;
-		        ctx.fillStyle = "#DD0000";
+		        ctx.fillStyle = '#DD0000';
 		        ctx.fillRect(x, y, gameConfig.width, gameConfig.height);
 		    }
-			document.getElementById("game").className += " game-over";
-		    document.getElementsByClassName("title-game")[0].innerHTML = "GAMER OVER";
+			document.getElementById('game').className += ' game-over';
+		    document.getElementsByClassName('title-game')[0].innerHTML = 'GAMER OVER';
 		    btSave.disabled = true;
 		}
 
@@ -363,8 +364,8 @@ window.addEventListener("load", function () {
 		//clear area and show number
 		function clearBox(x, y, num) {
 		    ctx.clearRect(x, y, gameConfig.width, gameConfig.height);
-		    ctx.fillStyle = "#000000";
-		    ctx.font = "20px Arial";
+		    ctx.fillStyle = '#000000';
+		    ctx.font = '20px Arial';
 		    ctx.fillText(num, x + gameConfig.width * 0.4, y + gameConfig.height * 0.7);
 		}
 		
@@ -402,7 +403,7 @@ window.addEventListener("load", function () {
 		            ctx.beginPath()
 		            ctx.lineWidth = 1;
 		            ctx.rect(x, y, gameConfig.width, gameConfig.height);
-		            ctx.strokeStyle = "#ffffff";
+		            ctx.strokeStyle = '#ffffff';
 		            ctx.fillStyle = gameConfig.color;
 		            ctx.fill();
 		            ctx.stroke();
@@ -418,7 +419,7 @@ window.addEventListener("load", function () {
 		
 		/* saveGame: this function will save before you finish the game all properties about the game: the level, the map with open blocks, the bombs position, the current time, the number of flags  
 		*/
-		function saveGame(e) {
+		function saveGame(event) {
 		    if (!youlose) {
 		        var oldGame = {
 		            level: gameConfig.currentLevel,
@@ -429,9 +430,9 @@ window.addEventListener("load", function () {
 		            flagsNum: gameConfig.flagsNum
 		        }
 				
-		        localStorage.setItem("oldgame", JSON.stringify(oldGame));
+		        localStorage.setItem('oldgame', JSON.stringify(oldGame));
 		        btLoad.disabled = false;
-				btLoad.addEventListener("click", loadGame)
+				btLoad.addEventListener('click', loadGame)
 		    }
 		}
 		//saveGame: end

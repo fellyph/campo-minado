@@ -9,19 +9,16 @@
     font-style: normal;
 
 }
+
 #game,
 #my-canvas {
 	margin: 0 auto;
 }
 
-.flags, 
-.timer,
-.smile {
+#flags, 
+#timer,
+#smile {
 	float: left;
-}
-
-.right{
-	float: right;
 }
 
 .container{
@@ -35,8 +32,8 @@ header {
 	height: 120px;
 }
 
-.flags,
-.timer {
+#flags,
+#timer {
 	font-family: 'ds-digitalnormal';
 	color: #00DD00;
 	background: #000;
@@ -46,7 +43,7 @@ header {
 	text-align: center;
 }
 
-.smile {
+#smile {
 	background: url(../img/smiles.gif) no-repeat center 0;
 	width: 60%;
 	height: 30px;
