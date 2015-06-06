@@ -9,7 +9,8 @@
     font-style: normal;
 
 }
-.center {
+#game,
+#my-canvas {
 	margin: 0 auto;
 }
 

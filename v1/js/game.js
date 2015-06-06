@@ -1,5 +1,4 @@
-	
-	var gameConfig = { 
+var gameConfig = { 
 			level: [{
 					rows: 8,
 					cols: 8,
@@ -28,6 +27,7 @@
         countcols = 0,
         mouseX,
         mouseY,
+        gameContainer,
         youlose = false,
         boxesToCheck = [
 				[1, 1],
@@ -41,13 +41,7 @@
 			],
         clickedBases = [];
 			
-		window.addEventListener('load', function() {
-			 canvas = document.getElementById('my-canvas');
-			 ctx = canvas.getContext('2d');
-			 canvas.width = gameConfig.width * gameConfig.level[gameConfig.currentLevel].cols;
-			 canvas.height = gameConfig.height * gameConfig.level[gameConfig.currentLevel].rows;
-			 initGame()
-		})
+		window.addEventListener('load', initGame)
 		
 		function onClickGame(event) {
 			mouseX = event.offsetX;
@@ -68,9 +62,14 @@
 		}
 	
 		function initGame() {
-			drawStage();
-			sortBombs();
-			canvas.addEventListener("click", onClickGame);
+            gameContainer = document.getElementById('game');
+            canvas = document.getElementById('my-canvas');
+            ctx = canvas.getContext('2d');
+            canvas.width = gameConfig.width * gameConfig.level[gameConfig.currentLevel].cols;
+            canvas.height = gameConfig.height * gameConfig.level[gameConfig.currentLevel].rows;
+            drawStage();
+            sortBombs();
+            canvas.addEventListener("click", onClickGame);
 		}
 		
 		function sortBombs() {
@@ -88,11 +87,16 @@
 			for(i = 0; i < gameConfig.bombsList.length; i++){
 				var x = gameConfig.bombsList[i][0] * gameConfig.width;
 				var y = gameConfig.bombsList[i][1] * gameConfig.height;
-				ctx.fillStyle = "#DD0000";
-				ctx.fillRect(x,y,gameConfig.width,gameConfig.height);
+				ctx.fillStyle = '#DD0000';
+				ctx.fillRect(x, y, gameConfig.width, gameConfig.height);
 			}
+			if(gameContainer.classList){
+                gameContainer.classList.add('gameover');
+            }   else {
+                gameContainer.className = (gameContainer.className.indexOf('gameover') > 0) ? 
+                        gameContainer.className + ' gameover' : gameContainer.className;
+            }
 			
-			document.getElementById("game").className += " gameover";
 		}
 		
 		function youStillAlive() {
@@ -106,13 +110,13 @@
 			}
 			
 			clearBox(clickedX * gameConfig.width, clickedY * gameConfig.height, numOfNearBombs)
-			clickedBases[(clickedBases.length)]  = [clickedX,clickedY,numOfNearBombs];
+			clickedBases[(clickedBases.length)]  = [clickedX, clickedY, numOfNearBombs];
 		}
 		
 		function clearBox(x, y, num) {
-		 	ctx.clearRect(x,y,gameConfig.width,gameConfig.height);
+		 	ctx.clearRect(x, y, gameConfig.width, gameConfig.height);
 		 	ctx.fillStyle = gameConfig.color;
-		 	ctx.font = "20px Arial";
+		 	ctx.font = '20px Arial';
 			ctx.fillText(num, x + gameConfig.width * 0.4, y + gameConfig.height * 0.7);	
 		}
 		
@@ -121,7 +125,7 @@
 		}
 		
 		function drawStage() {
-			ctx.clearRect(0,0,400,600);
+			ctx.clearRect(0, 0, 400, 600);
 			var total = gameConfig.level[gameConfig.currentLevel].cols *     
                         gameConfig.level[gameConfig.currentLevel].rows;
 			
@@ -131,8 +135,8 @@
 				
 				ctx.beginPath()
 				ctx.lineWidth = 1;
-				ctx.rect(x,y,gameConfig.width,gameConfig.height);
-				ctx.strokeStyle = "#ffffff";
+				ctx.rect(x, y, gameConfig.width, gameConfig.height);
+				ctx.strokeStyle = '#ffffff';
 				ctx.fillStyle = gameConfig.color;
 				ctx.fill();
 				ctx.stroke();
@@ -142,8 +146,6 @@
 				}else{
 					countcols = 0;
 					countrows++;
-				}
-				
-			}
-			
+				}	
+			}	
 		}
