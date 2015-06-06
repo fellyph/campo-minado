@@ -9,57 +9,57 @@
     font-style: normal;
 
 }
-.center{
+.center {
 	margin: 0 auto;
 }
 
-.left{
-	float:left;
+.flags, 
+.timer,
+.smile {
+	float: left;
 }
 
 .right{
-	float:right;
+	float: right;
 }
 
 .container{
-	width:600px;
+	width: 600px;
 }
 
 /* ----------------------------- header -----------------------*/
 
-header{
+header {
 	margin-bottom: 15px;
-	height:120px;
+	height: 120px;
 }
 
-#flags,
-#timer{
+.flags,
+.timer {
 	font-family: 'ds-digitalnormal';
-	color:#00DD00;
-	background:#000;
-	padding:10px;
-	border:2px solid #ddd;
-	width:16%;
-	text-align:center;
+	color: #00DD00;
+	background: #000;
+	padding: 10px;
+	border: 2px solid #ddd;
+	width: 16%;
+	text-align: center;
 }
 
-#smile{
+.smile {
 	background: url(../img/smiles.gif) no-repeat center 0;
 	width: 60%;
 	height: 30px;
 }
 
-.game-over #smile{
+.game-over #smile {
 	background-position: center -36px;
 }
 
-
-.you-win #smile{
+.you-win #smile {
 	background-position: center -72px;
 }
 
-
-.title-game{
+.title-game {
 	border-bottom: 1px solid #999;
 	border-top: 1px solid #ccc;
 	color: #FFCC00;
@@ -71,42 +71,41 @@ header{
 	padding: 10px 0;
 }
 
-.game-over .title-game{
+.game-over .title-game {
 	color: #CC0000;
 }
 
-#my-canvas{
+#my-canvas {
 	display: block;
 }
 
-.levels{
+.levels {
 	border-bottom: 1px solid #999;
 	border-top: 1px solid #999;
 	margin: 10px 0;
 	padding: 10px 0;
 }
 
-button{
-	background:transparent;
-	border:1px solid #999;
-	color:#999;
+button {
+	background: transparent;
+	border: 1px solid #999;
+	color: #999;
 }
 
-button:hover{
-	background:#999;
-	border:1px solid #999;
-	color:#fff;
+button:hover {
+	background: #999;
+	border: 1px solid #999;
+	color: #fff;
 }
 
-button.current{
-	background:#999;
-	color:#fff;
+.current {
+	background: #999;
+	color: #fff;
 }
 
-button:disabled{
-	opacity:0.3;
-	background:transparent;
-	border:1px solid #999;
-	color:#999;
+button:disabled {
+	opacity: 0.3;
+	background: transparent;
+	border: 1px solid #999;
+	color: #999;
 }
-

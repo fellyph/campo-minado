@@ -19,8 +19,8 @@
 			width: 50,
 			height: 50,
 			spaceBox: 3,
-			color:'#000000',
-			bombsList:[]
+			color: '#000000',
+			bombsList: []
     },
         ctx,
         canvas,
@@ -30,14 +30,14 @@
         mouseY,
         youlose = false,
         boxesToCheck = [
-				[1,1],
-				[0,1],
-				[-1,1],
-				[-1,0],
-				[-1,-1],
-				[0,-1],
-				[1,-1],
-				[1,0]
+				[1, 1],
+				[0, 1],
+				[-1, 1],
+				[-1, 0],
+				[-1, -1],
+				[0, -1],
+				[1, -1],
+				[1, 0]
 			],
         clickedBases = [];
 			
@@ -49,7 +49,7 @@
 			 initGame()
 		})
 		
-		function onClickGame(event){
+		function onClickGame(event) {
 			mouseX = event.offsetX;
 			mouseY = event.offsetY;
 			
@@ -61,10 +61,10 @@
 					gameOver();
 				}
 			}
-				
-			if(youlose == false){
-				youStillAlive();
-			}
+            
+			if(!youlose){
+                youStillAlive();
+            }
 		}
 	
 		function initGame() {
@@ -97,7 +97,6 @@
 		
 		function youStillAlive() {
 			var numOfNearBombs = 0;
-			
 			for(i in boxesToCheck){
 				for( j = 0; j < gameConfig.level[gameConfig.currentLevel].bombsNum; j++){
 					if(checkBase(j, clickedX + boxesToCheck[i][0], clickedY + boxesToCheck[i][1])){
@@ -112,13 +111,13 @@
 		
 		function clearBox(x, y, num) {
 		 	ctx.clearRect(x,y,gameConfig.width,gameConfig.height);
-		 	ctx.fillStyle= "#000000";
+		 	ctx.fillStyle = gameConfig.color;
 		 	ctx.font = "20px Arial";
-			ctx.fillText(num,x+gameConfig.width*0.4,y+gameConfig.height*0.7);	
+			ctx.fillText(num, x + gameConfig.width * 0.4, y + gameConfig.height * 0.7);	
 		}
 		
 		function checkBase(i, x, y) {
-			return (gameConfig.bombsList[i][0] == x && gameConfig.bombsList[i][1] == y) ? true : false;
+			return (gameConfig.bombsList[i][0] == x && gameConfig.bombsList[i][1] == y)? true : false;
 		}
 		
 		function drawStage() {

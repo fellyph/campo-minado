@@ -8,30 +8,31 @@
 </head>
 <body>
 	<section id="game" class="container center">
-	<header>
-		<h2 class="title-game">Minesweeper</h2>
-		<div class="info">
-			<div id="flags" class="left">00</div>
-			<div id="smile" class="left"></div>
-			<div id="timer" class="left">Timer: 0</div>
-		</div>
-	</header>
-	<canvas id="my-canvas" class="center" width="400" height="600"></canvas>
-	
-	<footer>
-		<div id="score"></div>
-		
-		<div class="levels">
-			<button class="set-level" data-level="0">level 1</button>
-			<button class="set-level" data-level="1">level 2</button>
-			<button class="set-level" data-level="2">level 3</button>
-		</div>
-		<div id="save-game">
-			<button id="bt-save">Save Game</button>
-			<button id="bt-load">Load Game</button>
-			<button id="bt-new">New Game</button>
-		</div>
-	</footer>
+        <header>
+            <h2 class="title-game">Minesweeper</h2>
+            <div class="info">
+                <div class="flags">00</div>
+                <div class="smile"></div>
+                <div class="timer">Timer: 0</div>
+            </div>
+        </header>
+        
+        <canvas id="my-canvas" class="center" width="400" height="600"></canvas>
+
+        <footer>
+            <div id="score"></div>
+
+            <div class="levels">
+                <button class="set-level" data-level="0">level 1</button>
+                <button class="set-level" data-level="1">level 2</button>
+                <button class="set-level" data-level="2">level 3</button>
+            </div>
+            <div id="save-game">
+                <button id="bt-save">Save Game</button>
+                <button id="bt-load">Load Game</button>
+                <button id="bt-new">New Game</button>
+            </div>
+        </footer>
 	</section>
 </body>
 </html>
