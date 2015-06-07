@@ -73,7 +73,7 @@ window.addEventListener('load', function () {
 		    }
 			
 		    if (localStorage.getItem('oldgame')) {
-		        btLoad.addEventListener('click', loadGame)
+		        btLoad.addEventListener('click', loadGame);
 		    } else {
 		        btLoad.disabled = true;
 		    }
@@ -86,11 +86,11 @@ window.addEventListener('load', function () {
 		    
 			btSave.addEventListener('click', saveGame);
 		    btNew.addEventListener('click', selectLevel);
-		})
+		});
 
 		function loadGame(e) {
 
-		    var oldGame = JSON.parse(localStorage.getItem('oldgame'))
+		    var oldGame = JSON.parse(localStorage.getItem('oldgame'));
 
 		    initGame(oldGame.level);
 		    
@@ -109,11 +109,11 @@ window.addEventListener('load', function () {
 
 		    for (var i = 0; i < totalRows; i++) {
 		        for (var j = 0; j < totalCols; j++) {
-		            if (gameConfig.map[i][j].clicked == true) {
-		                clearBox(i * gameConfig.width, j * gameConfig.height, gameConfig.map[i][j].nearBombs)
+		            if (gameConfig.map[i][j].clicked === true) {
+		                clearBox(i * gameConfig.width, j * gameConfig.height, gameConfig.map[i][j].nearBombs);
 		            }
 
-		            if (gameConfig.map[i][j].haveFlag == true) {
+		            if (gameConfig.map[i][j].haveFlag === true) {
 		                addFlag(i * gameConfig.width, j * gameConfig.height);
 		            }
 		        }
@@ -130,7 +130,7 @@ window.addEventListener('load', function () {
 		        current = gameConfig.currentLevel;
 		    }
 
-		    initGame(current)
+		    initGame(current);
 
 		    for (var i = 0; i < btnsLevel.length; i++) {
 		        btnsLevel[i].className = 'set-level';
@@ -140,9 +140,9 @@ window.addEventListener('load', function () {
 		}
 
 		function tryCheat(event) {
-		    if ((gameConfig.bombsList.length - gameConfig.flagsNum) == 0) {
+		    if ((gameConfig.bombsList.length - gameConfig.flagsNum) === 0) {
 		        var countCheat = 0;
-		        for (bomb in gameConfig.bombsList) {
+		        for (var bomb in gameConfig.bombsList) {
 		            if (gameConfig.map[gameConfig.bombsList[bomb][0]][gameConfig.bombsList[bomb][1]].haveFlag) {
 		                countCheat++;
 		            }
@@ -168,18 +168,17 @@ window.addEventListener('load', function () {
 		    clickedX = Math.floor(mouseX / gameConfig.width);
 		    clickedY = Math.floor(mouseY / gameConfig.height);
 
-		    if (gameConfig.map[clickedX][clickedY].haveBomb == true) {
-		        gameOver()
-		    } else if (gameConfig.map[clickedX][clickedY].clicked == false && !youlose) {
-		        gameConfig.map[clickedX][clickedY].clicked = true
+		    if (gameConfig.map[clickedX][clickedY].haveBomb === true) {
+		        gameOver();
+		    } else if (gameConfig.map[clickedX][clickedY].clicked === false && !youlose) {
+		        gameConfig.map[clickedX][clickedY].clicked = true;
 		        youStillAlive(clickedX, clickedY);
 		        btSave.disabled = false;
 		    }
 		}
 
-
 		function onRightClickGame(event) {
-		    event.preventDefault()
+		    event.preventDefault();
 
 		    if (!timerStarted) {
 		        timer = setInterval(countTimer, 1000);
@@ -224,9 +223,9 @@ window.addEventListener('load', function () {
 		    ctx.beginPath();
 		    ctx.lineWidth = 3;
 		    ctx.strokeStyle = '#ffffff';
-		    ctx.moveTo(x + 4, y + 4)
+		    ctx.moveTo(x + 4, y + 4);
 		    ctx.lineTo(x + 4, y + gameConfig.height - 4);
-		    ctx.stroke()
+		    ctx.stroke();
 		    ctx.closePath();
 			ctx.beginPath();
 		    ctx.moveTo(x + 8, y + 5);
@@ -239,7 +238,7 @@ window.addEventListener('load', function () {
 		}
 
 		function removeFlag(x, y) {
-		    ctx.beginPath()
+		    ctx.beginPath();
 		    ctx.lineWidth = 1;
 		    ctx.rect(x, y, gameConfig.width, gameConfig.height);
 		    ctx.strokeStyle = '#ffffff';
@@ -277,7 +276,7 @@ window.addEventListener('load', function () {
 		    sortBombs();
 		    canvas.addEventListener('click', onClickGame);
 		    canvas.addEventListener('contextmenu', onRightClickGame);
-		    document.getElementById('smile').addEventListener('click', tryCheat)
+		    document.getElementById('smile').addEventListener('click', tryCheat);
 		}
 
 		function countTimer() {
@@ -292,7 +291,7 @@ window.addEventListener('load', function () {
 		        var randomX = Math.floor(Math.random() * gameConfig.level[gameConfig.currentLevel].cols);
 		        var randomY = Math.floor(Math.random() * gameConfig.level[gameConfig.currentLevel].rows);
 		       
-		        if (gameConfig.map[randomX][randomY].haveBomb != true) {
+		        if (gameConfig.map[randomX][randomY].haveBomb !== true) {
 		            gameConfig.map[randomX][randomY].haveBomb = true;
 		            gameConfig.bombsList.push([randomX, randomY]);
 		        }
@@ -302,15 +301,15 @@ window.addEventListener('load', function () {
 		function gameOver() {
 		    youlose = true;
 		    
-            if (gameConfig.loadedGame = true) {
+            if (gameConfig.loadedGame === true) {
 		        localStorage.removeItem('oldgame');
 		        gameConfig.loadedGame = false;
 		        btLoad.disabled = true;
 		    }
             
-		    clearInterval(timer)
+		    clearInterval(timer);
 		    
-            for (i = 0; i < gameConfig.bombsList.length; i++) {
+            for (var i = 0; i < gameConfig.bombsList.length; i++) {
 		        var x = gameConfig.bombsList[i][0] * gameConfig.width;
 		        var y = gameConfig.bombsList[i][1] * gameConfig.height;
 		        ctx.fillStyle = '#DD0000';
@@ -324,8 +323,8 @@ window.addEventListener('load', function () {
 		function youStillAlive(x, y) {
 		    var numOfNearBombs = 0;
 
-		    for (i in boxesToCheck) {
-		        for (j = 0; j < gameConfig.level[gameConfig.currentLevel].bombsNum; j++) {
+		    for (var i in boxesToCheck) {
+		        for (var j = 0; j < gameConfig.level[gameConfig.currentLevel].bombsNum; j++) {
 		            if (checkBase(j, x + boxesToCheck[i][0], y + boxesToCheck[i][1])) {
 		                numOfNearBombs++;
 		            }
@@ -341,17 +340,17 @@ window.addEventListener('load', function () {
 		        youWin();
 		    }
 
-		    clearBox(x * gameConfig.width, y * gameConfig.height, numOfNearBombs)
+		    clearBox(x * gameConfig.width, y * gameConfig.height, numOfNearBombs);
 
 		    // check other box without nearBombs
-		    if (numOfNearBombs == 0) {
-		        for (i in boxesToCheck) {
-		            if (x + boxesToCheck[i][0] >= 0 &&
-		                x + boxesToCheck[i][0] < gameConfig.level[gameConfig.currentLevel].cols &&
-		                y + boxesToCheck[i][1] >= 0 &&
-		                y + boxesToCheck[i][1] < gameConfig.level[gameConfig.currentLevel].rows) {
-		                var nextX = x + boxesToCheck[i][0];
-		                var nextY = y + boxesToCheck[i][1];
+		    if (numOfNearBombs === 0) {
+		        for (var index in boxesToCheck) {
+		            if (x + boxesToCheck[index][0] >= 0 &&
+		                x + boxesToCheck[index][0] < gameConfig.level[gameConfig.currentLevel].cols &&
+		                y + boxesToCheck[index][1] >= 0 &&
+		                y + boxesToCheck[index][1] < gameConfig.level[gameConfig.currentLevel].rows) {
+		                var nextX = x + boxesToCheck[index][0];
+		                var nextY = y + boxesToCheck[index][1];
 
 		                if (!gameConfig.map[nextX][nextY].clicked) {
 		                    youStillAlive(nextX, nextY);
@@ -396,11 +395,12 @@ window.addEventListener('load', function () {
 		                haveBomb: false,
 		                nearBombs: 0,
 		                haveFlag: false
-		            }
+		            };
+                    
 		            var x = j * (gameConfig.width);
 		            var y = i * (gameConfig.height);
 
-		            ctx.beginPath()
+		            ctx.beginPath();
 		            ctx.lineWidth = 1;
 		            ctx.rect(x, y, gameConfig.width, gameConfig.height);
 		            ctx.strokeStyle = '#ffffff';
@@ -428,11 +428,11 @@ window.addEventListener('load', function () {
 		            seconds: seconds,
 		            clickedNum: gameConfig.clickedNum,
 		            flagsNum: gameConfig.flagsNum
-		        }
+		        };
 				
 		        localStorage.setItem('oldgame', JSON.stringify(oldGame));
 		        btLoad.disabled = false;
-				btLoad.addEventListener('click', loadGame)
+				btLoad.addEventListener('click', loadGame);
 		    }
 		}
 		//saveGame: end
